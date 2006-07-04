@@ -1,0 +1,98 @@
+Name
+    Encode::ZapCP1252 - Zap Windows Western Gremlins
+
+Synopsis
+      use Encode::ZapCP152;
+
+      zap_to_cp1252($text);
+
+Description
+    Have you ever been processing a Web form submit, assuming that the
+    incoming text was encoded in ISO-8859-1 (Latin-1), only to end up with a
+    bunch of junk because someone pasted in content from Microsoft Word?
+    Well, this is because Microsoft uses a superset of the Latin-1 encoding
+    called "Windows Western" or "CP1252". So mostly things will come out
+    right, but a few things--like curly quotes, m-dashes, elipses, and the
+    like--will not. The differences are well-known; you see a nice chart at
+    documenting the differences on Wikipedia:
+    <http://en.wikipedia.org/wiki/Windows-1252>.
+
+    Of course, that won't really help you. What will help you is to quit
+    using Latin-1 and switch to UTF-8. Then you can just convert from CP1252
+    to UTF-8 without losing a thing, just like this:
+
+      use Encode;
+      $text = decode('cp1252', $text, 1);
+
+    But I know that there are those of you out there stuck with Latin-1 and
+    who don't want any junk charactrs from Word users, and that's where this
+    module comes in. It will zap those CP1252 gremlins for you, turning them
+    into their appropriate UTF-8 approximations.
+
+Usage
+    This module exports a single subroutine: "zap_cp1252()". You use it like
+    this:
+
+      zap_cp1252($text);
+
+    This subroutine performs an *in place* conversion of the CP1252 gremlins
+    into appropriate ASCII approximations.
+
+    Note that because the conversion happens in place, the data to be
+    converted *cannot* be a string constant; it must be a scalar variable.
+
+Conversion Table
+    Here's how the characters are converted to ASCII. They're not perfect
+    conversions, but they should be good enough. If you want perfect, switch
+    to UTF-8 and be done with it!
+
+       Hex | Char  | ASCII | UTF-8 Name
+      -----+-------+-------+-------------------------------------------
+      0x80 |   €   |   e   | EURO SIGN
+      0x82 |   ‚   |   ,   | SINGLE LOW-9 QUOTATION MARK
+      0x83 |   ƒ   |   f   | LATIN SMALL LETTER F WITH HOOK
+      0x84 |   „   |   ,,  | DOUBLE LOW-9 QUOTATION MARK
+      0x85 |   …   |  ...  | HORIZONTAL ELLIPSIS
+      0x86 |   †   |   +   | DAGGER
+      0x87 |   ‡   |   ++  | DOUBLE DAGGER
+      0x88 |   ˆ   |   ^   | MODIFIER LETTER CIRCUMFLEX ACCENT
+      0x89 |   ‰   |   %   | PER MILLE SIGN
+      0x8a |   Š   |   S   | LATIN CAPITAL LETTER S WITH CARON
+      0x8b |   ‹   |   <   | SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+      0x8c |   Œ   |   OE  | LATIN CAPITAL LIGATURE OE
+      0x8e |   Ž   |   Z   | LATIN CAPITAL LETTER Z WITH CARON
+      0x91 |   ‘   |   '   | LEFT SINGLE QUOTATION MARK
+      0x92 |   ’   |   '   | RIGHT SINGLE QUOTATION MARK
+      0x93 |   “   |   "   | LEFT DOUBLE QUOTATION MARK
+      0x94 |   ”   |   "   | RIGHT DOUBLE QUOTATION MARK
+      0x95 |   •   |   *   | BULLET
+      0x96 |   –   |   -   | EN DASH
+      0x97 |   —   |   --  | EM DASH
+      0x98 |   ˜   |   ~   | SMALL TILDE
+      0x99 |   ™   |  (tm) | TRADE MARK SIGN
+      0x9a |   š   |   s   | LATIN SMALL LETTER S WITH CARON
+      0x9b |   ›   |   >   | SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+      0x9c |   œ   |   oe  | LATIN SMALL LIGATURE OE
+      0x9e |   ž   |   z   | LATIN SMALL LETTER Z WITH CARON
+      0x9f |   Ÿ   |   Y   | LATIN CAPITAL LETTER Y WITH DIAERESIS
+
+See Also
+    Encode
+    <http://en.wikipedia.org/wiki/Windows-1252>
+
+Bugs
+    Please send bug reports to <bug-encode-zapcp1252@rt.cpan.org>.
+
+Author
+    David Wheeler <david@kineticode.com>
+
+Acknowledgements
+    My thanks to Sean Burke for sending me his original method for
+    converting CP1252 characters to Latin-1 enabled ASCII characters.
+
+Copyright and License
+    Copyright (c) 2005 Kineticode, Inc. All Rights Reserved.
+
+    This module is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+

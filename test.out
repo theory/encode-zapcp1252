@@ -1,0 +1,12 @@
+
+#     Failed test (t/encode.t at line 109)
+Wide character in print at /usr/local/lib/perl5/5.8.7/Test/Builder.pm line 1095.
+#          got: 'Multibyte: 橿梶鰍潟割喝恰括活渇滑葛褐轄且鰹叶椛樺鞄株兜竃蒲釜鎌噛鴨栢茅萱 Broken: � � � Converting characters: � � � � �'
+#     expected: 'Multibyte: 橿梶鰍潟割喝恰括活渇滑葛褐轄且鰹叶椛樺鞄株兜竃蒲釜鎌噛鴨栢茅萱 Broken: � � � Converting characters: é ø ü ö í'
+
+#     Failed test (t/encode.t at line 111)
+Wide character in print at /usr/local/lib/perl5/5.8.7/Test/Builder.pm line 1095.
+#          got: 'Multibyte: 橿梶鰍潟割喝恰括活渇滑葛褐轄且鰹叶椛樺鞄株兜竃蒲釜鎌噛鴨栢茅萱 Broken: � � � Converting characters: � � � � �'
+#     expected: 'Multibyte: æ©¿æ¢¶é°æ½å²åæ°æ¬æ´»æ¸æ»èè¤è½ä¸é°¹å¶æ¤æ¨ºéæ ªåç«è²ééåé´¨æ ¢èè± Broken: “ œ Œ Converting characters: Ã© Ã¸ Ã¼ Ã¶ Ã­'
+# Looks like you failed 2 tests of 20.
+Failed 1/1 test scripts, 0.00% okay. 2/20 subtests failed, 90.00% okay.

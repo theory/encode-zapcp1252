@@ -1,0 +1,16 @@
+---
+name: Encode-ZapCP1252
+version: 0.01
+author:
+  - David Wheeler <david@kineticode.com>
+abstract: Zap Windows Western Gremlins
+license: perl
+resources:
+  license: http://dev.perl.org/licenses/
+build_requires:
+  Test::Simple: 0.17
+provides:
+  Encode::ZapCP1252:
+    file: lib/Encode/ZapCP1252.pm
+    version: 0.01
+generated_by: Module::Build version 0.2702
