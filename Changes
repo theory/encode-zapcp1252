@@ -1,6 +1,7 @@
 Revision history for Perl extension Encode::ZapCP1252
 
 0.02
+      - Fixed documentation typo.
 
 0.01  2005-10-04T23:20:26
       - Initial public release.
