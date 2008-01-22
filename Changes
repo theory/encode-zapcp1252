@@ -2,6 +2,8 @@ Revision history for Perl extension Encode::ZapCP1252
 
 0.02
       - Fixed documentation typo.
+      - Added the "configure_requires", and "recommends" parameters to
+        Build.PL.
 
 0.01  2005-10-04T23:20:26
       - Initial public release.
