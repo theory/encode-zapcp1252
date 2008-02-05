@@ -1,6 +1,6 @@
 package Encode::ZapCP1252;
 
-# $Id: WordDiff.pm 1932 2005-08-08 17:17:03Z theory $
+# $Id$
 
 use strict;
 require Exporter;
