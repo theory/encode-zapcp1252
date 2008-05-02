@@ -7,7 +7,10 @@ my $build = Module::Build->new(
     create_readme      => 1,
     requires           => { 'perl'          => '5.6.2'  },
     configure_requires => { 'Module::Build' => '0.2701' },
-    build_requires     => { 'Test::More'    => '0.17'   },
     recommends         => { 'Test::Pod'     => '1.20'   },
+    build_requires     => {
+        'Test::More'    => '0.17',
+        'Module::Build' => '0.2701',
+    },
 );
 $build->create_build_script;

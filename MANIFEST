@@ -7,4 +7,3 @@ META.yml
 README
 t/base.t
 t/pod.t
-test.out

@@ -1,6 +1,6 @@
 ---
 name: Encode-ZapCP1252
-version: 0.10
+version: 0.11
 author:
   - 'David Wheeler <david@kineticode.com>'
 abstract: Zap Windows Western Gremlins
@@ -12,13 +12,14 @@ configure_requires:
 requires:
   perl: 5.6.2
 build_requires:
+  Module::Build: 0.2701
   Test::More: 0.17
 recommends:
   Test::Pod: 1.20
 provides:
   Encode::ZapCP1252:
     file: lib/Encode/ZapCP1252.pm
-    version: 0.10
+    version: 0.11
 generated_by: Module::Build version 0.280801
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
