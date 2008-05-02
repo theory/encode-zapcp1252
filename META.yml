@@ -1,16 +1,23 @@
 ---
 name: Encode-ZapCP1252
-version: 0.01
+version: 0.02
 author:
-  - David Wheeler <david@kineticode.com>
+  - 'David Wheeler <david@kineticode.com>'
 abstract: Zap Windows Western Gremlins
 license: perl
 resources:
   license: http://dev.perl.org/licenses/
+configure_requires:
+  Module::Build: 0.2701
 build_requires:
-  Test::Simple: 0.17
+  Test::More: 0.17
+recommends:
+  Test::Pod: 1.20
 provides:
   Encode::ZapCP1252:
     file: lib/Encode/ZapCP1252.pm
-    version: 0.01
-generated_by: Module::Build version 0.2702
+    version: 0.02
+generated_by: Module::Build version 0.280801
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2

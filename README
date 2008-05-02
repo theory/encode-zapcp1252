@@ -27,7 +27,7 @@ Description
     But I know that there are those of you out there stuck with Latin-1 and
     who don't want any junk charactrs from Word users, and that's where this
     module comes in. It will zap those CP1252 gremlins for you, turning them
-    into their appropriate UTF-8 approximations.
+    into their appropriate ASCII approximations.
 
 Usage
     This module exports a single subroutine: "zap_cp1252()". You use it like
