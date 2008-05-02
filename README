@@ -4,7 +4,8 @@ Name
 Synopsis
       use Encode::ZapCP152;
 
-      zap_to_cp1252($text);
+      zap_cp1252 $latin1_text;
+      fix_cp1252 $utf8_text;
 
 Description
     Have you ever been processing a Web form submit, assuming that the
@@ -22,29 +23,40 @@ Description
     to UTF-8 without losing a thing, just like this:
 
       use Encode;
-      $text = decode('cp1252', $text, 1);
+      $text = decode 'cp1252', $text, 1;
 
     But I know that there are those of you out there stuck with Latin-1 and
     who don't want any junk charactrs from Word users, and that's where this
-    module comes in. It will zap those CP1252 gremlins for you, turning them
-    into their appropriate ASCII approximations.
+    module comes in. Its "zap_cp1252" function will zap those CP1252
+    gremlins for you, turning them into their appropriate ASCII
+    approximations.
+
+    Another case that can occaisionally come up is when you *are* using
+    UTF-8, and you're reading in text that *claims* to be UTF-8, but it
+    *still* ends up with some CP1252 gremlins mixed in with true UTF-8
+    characters. I've seen examples of just this sort of thing when
+    processing GMail messages and attempting to insert them into a UTF-8
+    database. Doesn't work so well. So this module also offers "fix_cp1252",
+    which converts those CP1252 gremlines into their UTF-8 equivalents.
 
 Usage
-    This module exports a single subroutine: "zap_cp1252()". You use it like
-    this:
+    This module exports two subroutines: "zap_cp1252()" and "fix_cp1252()".
+    You use these subroutines like so:
 
-      zap_cp1252($text);
+      zap_cp1252 $text;
+      fix_cp1252 $text;
 
-    This subroutine performs an *in place* conversion of the CP1252 gremlins
-    into appropriate ASCII approximations.
+    The "zap_cp1252()" subroutine performs *in place* conversions of any
+    CP1252 gremlins into their appropriate ASCII approximations, while
+    "fix_cp1252()" converts them, in place, into their UTF-8 equilvalents.
 
     Note that because the conversion happens in place, the data to be
     converted *cannot* be a string constant; it must be a scalar variable.
 
 Conversion Table
-    Here's how the characters are converted to ASCII. They're not perfect
-    conversions, but they should be good enough. If you want perfect, switch
-    to UTF-8 and be done with it!
+    Here's how the characters are converted to ASCII and UTF-8. The ASCII
+    conversions are not perfect, but they should be good enough for general
+    cleanup. If you want perfect, switch to UTF-8 and be done with it!
 
        Hex | Char  | ASCII | UTF-8 Name
       -----+-------+-------+-------------------------------------------
@@ -76,22 +88,47 @@ Conversion Table
       0x9e |   ž   |   z   | LATIN SMALL LETTER Z WITH CARON
       0x9f |   Ÿ   |   Y   | LATIN CAPITAL LETTER Y WITH DIAERESIS
 
+  Changing the Table
+    Don't like these conversions? You can modify them to your hearts content
+    by accessing this module's internal conversion tables. For example, if
+    you wanted "zap_cp1252()" to use an uppercase E for the euro sign, just
+    do this:
+
+      $Encode::ZapCP1252::ascii_for{"\x80"} = 'E';
+
+    Or if, for some bizarre reason, you wanted the UTF-8 equivalent for a
+    bullet converted by "fix_cp1252()" to really be an asterisk (why would
+    you? Just use "zap_cp1252" for that!), you can do this:
+
+      $Encode::ZapCP1252::utf8_for{"\x95"} = '*';
+
+    Just remember, this is a global change, so be careful if your code uses
+    this module elsewhere. Of course, it shouldn't really be doing that.
+    These functions are just for cleaning up messes in one spot in your
+    code, not for makeing a fundamental part of your text handling. For
+    that, use Encode.
+
 See Also
     Encode
     <http://en.wikipedia.org/wiki/Windows-1252>
 
-Bugs
-    Please send bug reports to <bug-encode-zapcp1252@rt.cpan.org>.
+Support
+    This module is stored in an open repository at the following address:
+
+    <https://svn.kineticode.com/Encode-ZapCP1252/trunk/>
+
+    Patches against SVN::Notify are welcome. Please send bug reports to
+    <bug-encode-zapcp1252@rt.cpan.org>.
 
 Author
     David Wheeler <david@kineticode.com>
 
 Acknowledgements
     My thanks to Sean Burke for sending me his original method for
-    converting CP1252 characters to Latin-1 enabled ASCII characters.
+    converting CP1252 gremlins to more-or-less appropriate ASCII characters.
 
 Copyright and License
-    Copyright (c) 2005 Kineticode, Inc. All Rights Reserved.
+    Copyright (c) 2005-2008 Kineticode, Inc. Some Rights Reserved.
 
     This module is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

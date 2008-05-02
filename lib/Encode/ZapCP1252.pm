@@ -3,11 +3,10 @@ package Encode::ZapCP1252;
 # $Id$
 
 use strict;
-use utf8;
 require Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 
-$VERSION = '0.03';
+$VERSION = '0.10';
 @ISA     = qw(Exporter);
 @EXPORT  = qw(zap_cp1252 fix_cp1252);
 

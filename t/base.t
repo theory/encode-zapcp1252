@@ -4,7 +4,6 @@
 
 use strict;
 use Test::More tests => 7;
-use utf8;
 
 BEGIN { use_ok 'Encode::ZapCP1252' or die; }
 
