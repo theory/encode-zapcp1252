@@ -12,37 +12,37 @@ $VERSION     = '0.02';
 
 my %cp1252 = (
     # http://en.wikipedia.org/wiki/Windows-1252
-    "\x{80}" => 'e',    # EURO SIGN
-    "\x{82}" => ',',    # SINGLE LOW-9 QUOTATION MARK
-    "\x{83}" => 'f',    # LATIN SMALL LETTER F WITH HOOK
-    "\x{84}" => ',,',   # DOUBLE LOW-9 QUOTATION MARK
-    "\x{85}" => '...',  # HORIZONTAL ELLIPSIS
-    "\x{86}" => '+',    # DAGGER
-    "\x{87}" => '++',   # DOUBLE DAGGER
-    "\x{88}" => '^',    # MODIFIER LETTER CIRCUMFLEX ACCENT
-    "\x{89}" => '%',    # PER MILLE SIGN
-    "\x{8a}" => 'S',    # LATIN CAPITAL LETTER S WITH CARON
-    "\x{8b}" => '<',    # SINGLE LEFT-POINTING ANGLE QUOTATION MARK
-    "\x{8c}" => 'OE',   # LATIN CAPITAL LIGATURE OE
-    "\x{8e}" => 'Z',    # LATIN CAPITAL LETTER Z WITH CARON
-    "\x{91}" => "'",    # LEFT SINGLE QUOTATION MARK
-    "\x{92}" => "'",    # RIGHT SINGLE QUOTATION MARK
-    "\x{93}" => '"',    # LEFT DOUBLE QUOTATION MARK
-    "\x{94}" => '"',    # RIGHT DOUBLE QUOTATION MARK
-    "\x{95}" => '*',    # BULLET
-    "\x{96}" => '-',    # EN DASH
-    "\x{97}" => '--',   # EM DASH
-    "\x{98}" => '~',    # SMALL TILDE
-    "\x{99}" => '(tm)', # TRADE MARK SIGN
-    "\x{9a}" => 's',    # LATIN SMALL LETTER S WITH CARON
-    "\x{9b}" => '>',    # SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
-    "\x{9c}" => 'oe',   # LATIN SMALL LIGATURE OE
-    "\x{9e}" => 'z',    # LATIN SMALL LETTER Z WITH CARON
-    "\x{9f}" => 'Y',    # LATIN CAPITAL LETTER Y WITH DIAERESIS
+    "\x80" => 'e',    # EURO SIGN
+    "\x82" => ',',    # SINGLE LOW-9 QUOTATION MARK
+    "\x83" => 'f',    # LATIN SMALL LETTER F WITH HOOK
+    "\x84" => ',,',   # DOUBLE LOW-9 QUOTATION MARK
+    "\x85" => '...',  # HORIZONTAL ELLIPSIS
+    "\x86" => '+',    # DAGGER
+    "\x87" => '++',   # DOUBLE DAGGER
+    "\x88" => '^',    # MODIFIER LETTER CIRCUMFLEX ACCENT
+    "\x89" => '%',    # PER MILLE SIGN
+    "\x8a" => 'S',    # LATIN CAPITAL LETTER S WITH CARON
+    "\x8b" => '<',    # SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+    "\x8c" => 'OE',   # LATIN CAPITAL LIGATURE OE
+    "\x8e" => 'Z',    # LATIN CAPITAL LETTER Z WITH CARON
+    "\x91" => "'",    # LEFT SINGLE QUOTATION MARK
+    "\x92" => "'",    # RIGHT SINGLE QUOTATION MARK
+    "\x93" => '"',    # LEFT DOUBLE QUOTATION MARK
+    "\x94" => '"',    # RIGHT DOUBLE QUOTATION MARK
+    "\x95" => '*',    # BULLET
+    "\x96" => '-',    # EN DASH
+    "\x97" => '--',   # EM DASH
+    "\x98" => '~',    # SMALL TILDE
+    "\x99" => '(tm)', # TRADE MARK SIGN
+    "\x9a" => 's',    # LATIN SMALL LETTER S WITH CARON
+    "\x9b" => '>',    # SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+    "\x9c" => 'oe',   # LATIN SMALL LIGATURE OE
+    "\x9e" => 'z',    # LATIN SMALL LETTER Z WITH CARON
+    "\x9f" => 'Y',    # LATIN CAPITAL LETTER Y WITH DIAERESIS
 );
 
 sub zap_cp1252 ($) {
-    $_[0] =~ s/([\x{80}-\x{9f}])/$cp1252{$1} || $1/emxsg;
+    $_[0] =~ s/([\x80-\x9f])/$cp1252{$1} || $1/emxsg;
 }
 
 1;
