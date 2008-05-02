@@ -5,6 +5,7 @@ package Encode::ZapCP1252;
 use strict;
 require Exporter;
 use vars qw($VERSION @ISA @EXPORT);
+use 5.006_002;
 
 $VERSION = '0.11';
 @ISA     = qw(Exporter);
