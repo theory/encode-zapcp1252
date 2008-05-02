@@ -1,6 +1,12 @@
 Revision history for Perl extension Encode::ZapCP1252
 
 0.03
+      - Added `fix_cp1252()`, which converts CP1252 gremlins to their UTF-8
+        equivalents.
+      - Made the character mapping hashes into `our` variables, instead of
+        lexicals, so that they can be messed with externally. Suggested by
+        Max Maischen.
+      - Added link to source code repository.
 
 0.02  2008-05-02T04:50:04
       - Fixed documentation typo.
