@@ -6,7 +6,7 @@ Revision history for Perl extension Encode::ZapCP1252
       - Removed bogus test.out file from the distribution. No idea how that
         got in there.
       - Added Module::Build to `build_requires` in Build.PL.
-      - Fixed another Perl 5.6.2 test failure reported by David Golden.
+      - Fixed another Perl 5.6.2 test failure reported by David Cantrell.
       - Added Encode to the `recommends` parameter in Build.PL.
 
 0.10  2008-05-02T18:32:27
