@@ -228,7 +228,7 @@ This module is stored in an open repository at the following address:
 
 L<https://svn.kineticode.com/Encode-ZapCP1252/trunk/>
 
-Patches against SVN::Notify are welcome. Please send bug reports to
+Patches against Encode::ZapCP1252 are welcome. Please send bug reports to
 <bug-encode-zapcp1252@rt.cpan.org>.
 
 =head1 Author
