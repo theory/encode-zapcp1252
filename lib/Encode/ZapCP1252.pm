@@ -103,7 +103,7 @@ Encode::ZapCP1252 - Zap Windows Western Gremlins
 
 =head1 Synopsis
 
-  use Encode::ZapCP152;
+  use Encode::ZapCP1252;
 
   zap_cp1252 $latin1_text;
   fix_cp1252 $utf8_text;
