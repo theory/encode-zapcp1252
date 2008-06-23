@@ -4,6 +4,8 @@ Revision history for Perl extension Encode::ZapCP1252
       - Fixed pasto in the "Support" section of the docs.
       - Fixed a typo in the "Synopsis" section of the docs, thaks to David
         Beaudet.
+      - Fixed the 5.6.2 requirement to be properly detected in Perl 5.5.
+        Thanks to Slaven Rezic for the report.
 
 0.11  2008-05-03T21:33:40
       - Removed bogus test.out file from the distribution. No idea how that

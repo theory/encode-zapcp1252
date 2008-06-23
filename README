@@ -2,7 +2,7 @@ Name
     Encode::ZapCP1252 - Zap Windows Western Gremlins
 
 Synopsis
-      use Encode::ZapCP152;
+      use Encode::ZapCP1252;
 
       zap_cp1252 $latin1_text;
       fix_cp1252 $utf8_text;
@@ -117,8 +117,8 @@ Support
 
     <https://svn.kineticode.com/Encode-ZapCP1252/trunk/>
 
-    Patches against Encode::ZapCP1252 are welcome. Please send bug reports to
-    <bug-encode-zapcp1252@rt.cpan.org>.
+    Patches against Encode::ZapCP1252 are welcome. Please send bug reports
+    to <bug-encode-zapcp1252@rt.cpan.org>.
 
 Author
     David Wheeler <david@kineticode.com>
