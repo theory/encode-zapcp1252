@@ -7,7 +7,7 @@ require Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 use 5.006_002;
 
-$VERSION = '0.12';
+$VERSION = '0.13';
 @ISA     = qw(Exporter);
 @EXPORT  = qw(zap_cp1252 fix_cp1252);
 
