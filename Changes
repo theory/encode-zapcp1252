@@ -1,6 +1,7 @@
 Revision history for Perl extension Encode::ZapCP1252
 
 0.13
+      - Added `local` to examples of changing the maping tables.
 
 0.12  2008-06-23T17:48:04
       - Fixed pasto in the "Support" section of the docs.
