@@ -192,25 +192,25 @@ cleanup. If you want perfect, switch to UTF-8 and be done with it!
   0x9e |   ž   |   z   | LATIN SMALL LETTER Z WITH CARON
   0x9f |   Ÿ   |   Y   | LATIN CAPITAL LETTER Y WITH DIAERESIS
 
-=head2 Changing the Table
+=head2 Changing the Tables
 
 Don't like these conversions? You can modify them to your hearts content by
 accessing this module's internal conversion tables. For example, if you wanted
 C<zap_cp1252()> to use an uppercase E for the euro sign, just do this:
 
-  $Encode::ZapCP1252::ascii_for{"\x80"} = 'E';
+  local $Encode::ZapCP1252::ascii_for{"\x80"} = 'E';
 
 Or if, for some bizarre reason, you wanted the UTF-8 equivalent for a bullet
 converted by C<fix_cp1252()> to really be an asterisk (why would you? Just use
 C<zap_cp1252> for that!), you can do this:
 
-  $Encode::ZapCP1252::utf8_for{"\x95"} = '*';
+  local $Encode::ZapCP1252::utf8_for{"\x95"} = '*';
 
-Just remember, this is a global change, so be careful if your code uses this
-module elsewhere. Of course, it shouldn't really be doing that. These
-functions are just for cleaning up messes in one spot in your code, not for
-makeing a fundamental part of your text handling. For that, use
-L<Encode|Encode>.
+Just remember, without C<locala> this would be a global change. In that case,
+be careful if your code zaps CP1252 elsewhere. Of course, it shouldn't really
+be doing that. These functions are just for cleaning up messes in one spot in
+your code, not for making a fundamental part of your text handling. For that,
+use L<Encode|Encode>.
 
 =head1 See Also
 
