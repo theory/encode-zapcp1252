@@ -36,4 +36,4 @@ $Encode::ZapCP1252::utf8_for{"\x80"} = 'E';
 $utf8 =~ s/€/E/;
 $fix_me = $cp1252;
 fix_cp1252 $fix_me;
-is $fix_me, $utf8, 'Convert to ascii with modified table';
+is $fix_me, $utf8, 'Convert to utf-8 with modified table';

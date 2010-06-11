@@ -10,6 +10,7 @@ use 5.006_002;
 $VERSION = '0.13';
 @ISA     = qw(Exporter);
 @EXPORT  = qw(zap_cp1252 fix_cp1252);
+use constant ENCODE => eval { require Encode };
 
 our %ascii_for = (
     # http://en.wikipedia.org/wiki/Windows-1252
@@ -74,11 +75,36 @@ our %utf8_for = (
 );
 
 sub zap_cp1252 ($) {
+    if (ENCODE && Encode::is_utf8($_[0])) {
+        _tweak_decoded(\%ascii_for, $_[0]);
+    }
     $_[0] =~ s/([\x80-\x9f])/$ascii_for{$1} || $1/emxsg;
 }
 
 sub fix_cp1252 ($) {
+    if (ENCODE && Encode::is_utf8($_[0])) {
+        _tweak_decoded(\%utf8_for, $_[0]);
+    }
     $_[0] =~ s/([\x80-\x9f])/$utf8_for{$1} || $1/emxsg;
+}
+
+sub _tweak_decoded {
+    my $table = shift;
+    local $@;
+    # First, try to replace in the decoded string.
+    my $ret = eval { $_[0] =~ s{([\x80-\x9f])}{
+        $table->{$1} ? Encode::decode('UTF-8', $table->{$1}) : $1
+    }emxsg };
+    if (my $err = $@) {
+        # If we got a "Malformed UTF-8 character" error, then someone
+        # likely turned on the utf8 flag without decoding. So turn it off.
+        # and try again.
+        die if $err !~ /Malformed/;
+        Encode::_utf8_off($_[0]);
+            $ret = $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
+        Encode::_utf8_on($_[0]);
+    }
+    return $ret;
 }
 
 1;
@@ -154,6 +180,15 @@ converts them, in place, into their UTF-8 equilvalents.
 Note that because the conversion happens in place, the data to be converted
 I<cannot> be a string constant; it must be a scalar variable.
 
+In Perl 5.8 and higher, the conversion will work whether the string is decoded
+to Perl's internal form (usually via C<decode 'ISO-8859-1', $text>) or the
+string is encoded (and thus simply processed by Perl as a series of bytes).
+The conversion will even work on a string that has not been decoded but has
+had its C<utf8> flag flipped anyway (usually by an injudicious use of
+C<Encode::_utf8_on()>. This is to enable the highest possible likelyhood of
+removing those CP1252 gremlins no matter what kind of processing has already
+been executed on the string.
+
 =head1 Conversion Table
 
 Here's how the characters are converted to ASCII and UTF-8. The ASCII
@@ -196,7 +231,7 @@ cleanup. If you want perfect, switch to UTF-8 and be done with it!
 
 Don't like these conversions? You can modify them to your hearts content by
 accessing this module's internal conversion tables. For example, if you wanted
-C<zap_cp1252()> to use an uppercase E for the euro sign, just do this:
+C<zap_cp1252()> to use an uppercase "E" for the euro sign, just do this:
 
   local $Encode::ZapCP1252::ascii_for{"\x80"} = 'E';
 
