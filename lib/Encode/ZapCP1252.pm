@@ -77,34 +77,39 @@ our %utf8_for = (
 sub zap_cp1252 ($) {
     if (ENCODE && Encode::is_utf8($_[0])) {
         _tweak_decoded(\%ascii_for, $_[0]);
+    } else {
+        $_[0] =~ s/([\x80-\x9f])/$ascii_for{$1} || $1/emxsg;
     }
-    $_[0] =~ s/([\x80-\x9f])/$ascii_for{$1} || $1/emxsg;
+    return $_[0] if defined wantarray;
 }
 
 sub fix_cp1252 ($) {
     if (ENCODE && Encode::is_utf8($_[0])) {
         _tweak_decoded(\%utf8_for, $_[0]);
+    } else {
+        $_[0] =~ s/([\x80-\x9f])/$utf8_for{$1} || $1/emxsg;
     }
-    $_[0] =~ s/([\x80-\x9f])/$utf8_for{$1} || $1/emxsg;
+    return $_[0] if defined wantarray;
 }
 
 sub _tweak_decoded {
     my $table = shift;
     local $@;
     # First, try to replace in the decoded string.
-    my $ret = eval { $_[0] =~ s{([\x80-\x9f])}{
-        $table->{$1} ? Encode::decode('UTF-8', $table->{$1}) : $1
-    }emxsg };
+    eval {
+        $_[0] =~ s{([\x80-\x9f])}{
+            $table->{$1} ? Encode::decode('UTF-8', $table->{$1}) : $1
+        }emxsg
+    };
     if (my $err = $@) {
         # If we got a "Malformed UTF-8 character" error, then someone
         # likely turned on the utf8 flag without decoding. So turn it off.
         # and try again.
         die if $err !~ /Malformed/;
         Encode::_utf8_off($_[0]);
-            $ret = $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
+        $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
         Encode::_utf8_on($_[0]);
     }
-    return $ret;
 }
 
 1;
@@ -178,7 +183,12 @@ gremlins into their appropriate ASCII approximations, while C<fix_cp1252()>
 converts them, in place, into their UTF-8 equilvalents.
 
 Note that because the conversion happens in place, the data to be converted
-I<cannot> be a string constant; it must be a scalar variable.
+I<cannot> be a string constant; it must be a scalar variable. For convenience,
+the converted string is also returned when the subroutines are called in a
+non-void context:
+
+  my $fixed = zap_cp1252 $text;
+  # $text and $fixed are the same.
 
 In Perl 5.8 and higher, the conversion will work whether the string is decoded
 to Perl's internal form (usually via C<decode 'ISO-8859-1', $text>) or the

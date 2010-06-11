@@ -2,7 +2,10 @@ Revision history for Perl extension Encode::ZapCP1252
 
 0.13
       - Added `local` to examples of changing the maping tables.
-      - Enable zapping and fixing CP1252 gremlines in decoded strings, too.
+      - When the Encode module is insatlled, zapping and fixing CP1252
+        gremlins now works in decoded strings, too.
+      - For convenience, the functions now return the strings they've
+        modified.
 
 0.12  2008-06-23T17:48:04
       - Fixed pasto in the "Support" section of the docs.
