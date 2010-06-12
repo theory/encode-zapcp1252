@@ -6,14 +6,21 @@ my $build = Module::Build->new(
     create_makefile_pl => 'traditional',
     create_readme      => 1,
     requires           => { 'perl'          => 5.006_002  },
-    configure_requires => { 'Module::Build' => '0.2701' },
+    configure_requires => { 'Module::Build' => '0.36' },
     recommends         => {
         'Test::Pod' => '1.20',
         'Encode'    => 0,
     },
     build_requires     => {
         'Test::More'    => '0.17',
-        'Module::Build' => '0.2701',
+        'Module::Build' => '0.36',
+    },
+    meta_merge => {
+        resources => {
+            homepage   => 'http://search.cpan.org/dist/Encode-CP1252/',
+            bugtracker => 'http://github.com/theory/encode-cp1252/issues/',
+            repository => 'http://github.com/theory/encode-cp1252/tree',
+        }
     },
 );
 $build->create_build_script;

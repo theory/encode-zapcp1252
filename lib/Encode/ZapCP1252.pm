@@ -115,17 +115,6 @@ __END__
 
 ##############################################################################
 
-=begin comment
-
-Fake-out Module::Build. Delete if it ever changes to support =head1 headers
-other than all uppercase.
-
-=head1 NAME
-
-Encode::ZapCP1252 - Zap Windows Western Gremlins
-
-=end comment
-
 =head1 Name
 
 Encode::ZapCP1252 - Zap Windows Western Gremlins
@@ -145,8 +134,8 @@ because someone pasted in content from Microsoft Word? Well, this is because
 Microsoft uses a superset of the Latin-1 encoding called "Windows Western" or
 "CP1252". So mostly things will come out right, but a few things--like curly
 quotes, m-dashes, elipses, and the like--will not. The differences are
-well-known; you see a nice chart at documenting the differences on Wikipedia:
-L<http://en.wikipedia.org/wiki/Windows-1252>.
+well-known; you see a nice chart at documenting the differences on
+L<Wikipedia|http://en.wikipedia.org/wiki/Windows-1252>.
 
 Of course, that won't really help you. What will help you is to quit using
 Latin-1 and switch to UTF-8. Then you can just convert from CP1252 to UTF-8
@@ -253,37 +242,29 @@ Just remember, without C<locala> this would be a global change. In that case,
 be careful if your code zaps CP1252 elsewhere. Of course, it shouldn't really
 be doing that. These functions are just for cleaning up messes in one spot in
 your code, not for making a fundamental part of your text handling. For that,
-use L<Encode|Encode>.
+use L<Encode>.
 
 =head1 See Also
 
 =over
 
-=item L<Encode|Encode>
+=item L<Encode>
 
-=item L<http://en.wikipedia.org/wiki/Windows-1252>
+=item L<Wikipedia: Windows-1252|http://en.wikipedia.org/wiki/Windows-1252>
 
 =back
 
 =head1 Support
 
-This module is stored in an open repository at the following address:
+This module is stored in an open L<GitHub
+repository|http://github.com/theory/encode-cp1252/tree/>. Feel free to fork
+and contribute!
 
-L<https://svn.kineticode.com/Encode-ZapCP1252/trunk/>
-
-Patches against Encode::ZapCP1252 are welcome. Please send bug reports to
-<bug-encode-zapcp1252@rt.cpan.org>.
+Please file bug reports via L<GitHub
+Issues|http://github.com/theory/encode-cp1252/issues/> or by sending mail to
+L<bug-Encode-CP1252@rt.cpan.org|mailto:bug-Encode-CP1252@rt.cpan.org>.
 
 =head1 Author
-
-=begin comment
-
-Fake-out Module::Build. Delete if it ever changes to support =head1 headers
-other than all uppercase.
-
-=head1 AUTHOR
-
-=end comment
 
 David Wheeler <david@kineticode.com>
 
@@ -294,7 +275,7 @@ CP1252 gremlins to more-or-less appropriate ASCII characters.
 
 =head1 Copyright and License
 
-Copyright (c) 2005-2008 Kineticode, Inc. Some Rights Reserved.
+Copyright (c) 2005-2010 Kineticode, Inc. Some Rights Reserved.
 
 This module is free software; you can redistribute it and/or modify it under the
 same terms as Perl itself.

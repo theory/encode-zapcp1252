@@ -1,0 +1,7 @@
+_build
+blib
+Encode-CP1252-*
+MANIFEST
+MANIFEST.bak
+META.*
+Build
