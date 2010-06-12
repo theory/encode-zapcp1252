@@ -6,6 +6,8 @@ Revision history for Perl extension Encode::ZapCP1252
         gremlins now works in decoded strings, too.
       - For convenience, the functions now return the strings they've
         modified.
+      - Shipping with a traditional `Makefile.PL` rather than one that
+        passes through to Module::Build.
 
 0.12  2008-06-23T17:48:04
       - Fixed pasto in the "Support" section of the docs.
