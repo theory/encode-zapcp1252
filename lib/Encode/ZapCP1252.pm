@@ -74,20 +74,22 @@ our %utf8_for = (
 
 sub zap_cp1252 ($) {
     return unless defined $_[0];
+    local $_[0] = $_[0] if defined wantarray;
     if (ENCODE && Encode::is_utf8($_[0])) {
         _tweak_decoded(\%ascii_for, $_[0]);
     } else {
-        $_[0] =~ s/([\x80-\x9f])/$ascii_for{$1} || $1/emxsg;
+        $_[0] =~ s{([\x80-\x9f])}{$ascii_for{$1} || $1}emxsg;
     }
     return $_[0] if defined wantarray;
 }
 
 sub fix_cp1252 ($) {
     return unless defined $_[0];
+    local $_[0] = $_[0] if defined wantarray;
     if (ENCODE && Encode::is_utf8($_[0])) {
         _tweak_decoded(\%utf8_for, $_[0]);
     } else {
-        $_[0] =~ s/([\x80-\x9f])/$utf8_for{$1} || $1/emxsg;
+        $_[0] =~ s{([\x80-\x9f])}{$utf8_for{$1} || $1}emxsg;
     }
     return $_[0] if defined wantarray;
 }
@@ -125,8 +127,13 @@ Encode::ZapCP1252 - Zap Windows Western Gremlins
 
   use Encode::ZapCP1252;
 
+  # Zap or fix in-place.
   zap_cp1252 $latin1_text;
   fix_cp1252 $utf8_text;
+
+  # Zap or fix copy.
+  my $clean_latin1 = zap_cp1252 $latin1_text;
+  my $fixed_utf8   = fix_cp1252 $utf8_text;
 
 =head1 Description
 
@@ -169,18 +176,20 @@ Use them like so:
   zap_cp1252 $text;
   fix_cp1252 $text;
 
-The C<zap_cp1252()> subroutine performs I<in place> conversions of any CP1252
-gremlins into their appropriate ASCII approximations, while C<fix_cp1252()>
-converts them, in place, into their UTF-8 equivalents. C<undef>s will be
-ignored.
+When called in a void context, as in these examples, C<zap_cp1252()> and
+C<fix_cp1252()> subroutine perform I<in place> conversions of any CP1252
+gremlins into their appropriate ASCII approximations or UTF-8 equivalents,
+respectively. Note that because the conversion happens in place, the data to
+be converted I<cannot> be a string constant; it must be a scalar variable.
 
-Note that because the conversion happens in place, the data to be converted
-I<cannot> be a string constant; it must be a scalar variable. For convenience,
-the converted string is also returned when the subroutines are called in a
-non-void context:
+When called in a scalar or list context, on the other hand, a copy will be
+modifed and returned. The original string will be unchanged:
 
-  my $fixed = zap_cp1252 $text;
-  # $text and $fixed are the same.
+  my $clean_latin1 = zap_cp1252 $latin1_text;
+  my $fixed_utf8   = fix_cp1252 $utf8_text;
+
+In this case, even constant values can be processed. Either way, C<undef>s
+will be ignored.
 
 In Perl 5.8 and higher, the conversion will work even when the string is
 decoded to Perl's internal form (usually via C<decode 'ISO-8859-1', $text>) or

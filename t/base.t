@@ -25,11 +25,11 @@ is $fix_me, $utf8, 'Convert to utf-8';
 # Try checking the return value, too.
 $fix_me = $cp1252;
 is fix_cp1252 $fix_me, $utf8, 'Check fixed return value';
-is $fix_me, $utf8, 'Should have been fixed in-place';
+is $fix_me, $cp1252, 'Should not have been fixed in-place';
 
 $fix_me = $cp1252;
 is zap_cp1252 $fix_me, $ascii, 'Check zapped return value';
-is $fix_me, $ascii, 'Should have been zapped in-place';
+is $fix_me, $cp1252, 'Should not have been zapped in-place';
 
 # Test conversion to ASCII with modified table.
 $Encode::ZapCP1252::ascii_for{"\x80"} = 'E';
