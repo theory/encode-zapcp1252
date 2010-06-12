@@ -1,6 +1,6 @@
 _build
 blib
-Encode-CP1252-*
+Encode-ZapCP1252-*
 MANIFEST
 MANIFEST.bak
 META.*
