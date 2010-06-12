@@ -5,6 +5,9 @@ Revision history for Perl extension Encode::ZapCP1252
         without doing anything.
       - Strings are no longer modifed in-place unless the conversion
         subroutines are called in a void context.
+      - The conversion functions may optionally be called with no arugment
+        when run in Perl 5.10 or higher, in which case they will instead act
+        on `$_`.
 
 0.20  2010-06-12T00:39:35
       - Added `local` to examples of changing the maping tables.

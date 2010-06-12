@@ -72,24 +72,20 @@ our %utf8_for = (
     "\x9f" => 'Ÿ',    # LATIN CAPITAL LETTER Y WITH DIAERESIS
 );
 
-sub zap_cp1252 ($) {
-    return unless defined $_[0];
-    local $_[0] = $_[0] if defined wantarray;
-    if (ENCODE && Encode::is_utf8($_[0])) {
-        _tweak_decoded(\%ascii_for, $_[0]);
-    } else {
-        $_[0] =~ s{([\x80-\x9f])}{$ascii_for{$1} || $1}emxsg;
-    }
-    return $_[0] if defined wantarray;
+BEGIN {
+    my $proto = $] >= 5.010000 ? '_' : '$';
+    eval "sub zap_cp1252($proto) { _tweakit(\\%ascii_for, \$_[0]) }";
+    eval "sub fix_cp1252($proto) { _tweakit(\\%utf8_for, \$_[0]) }";
 }
 
-sub fix_cp1252 ($) {
+sub _tweakit {
+    my $table = shift;
     return unless defined $_[0];
     local $_[0] = $_[0] if defined wantarray;
     if (ENCODE && Encode::is_utf8($_[0])) {
-        _tweak_decoded(\%utf8_for, $_[0]);
+        _tweak_decoded($table, $_[0]);
     } else {
-        $_[0] =~ s{([\x80-\x9f])}{$utf8_for{$1} || $1}emxsg;
+        $_[0] =~ s{([\x80-\x9f])}{$table->{$1} || $1}emxsg;
     }
     return $_[0] if defined wantarray;
 }
@@ -170,8 +166,8 @@ equivalents.
 
 =head1 Usage
 
-This module exports two subroutines: C<zap_cp1252()> and C<fix_cp1252()>.
-Use them like so:
+This module exports two subroutines: C<zap_cp1252()> and C<fix_cp1252()>,
+each of which accept a single argument:
 
   zap_cp1252 $text;
   fix_cp1252 $text;
@@ -199,6 +195,14 @@ but has had its C<utf8> flag flipped anyway (usually by an injudicious use of
 C<Encode::_utf8_on()>. This is to enable the highest possible likelihood of
 removing those CP1252 gremlins no matter what kind of processing has already
 been executed on the string.
+
+In Perl 5.10 and higher, the functions may optionally be called with no
+arguments, in which case C<$_> will be converted, instead:
+
+  zap_cp1252; # Modify $_ in-place.
+  fix_cp1252; # Modify $_ in-place.
+  my $zapped = zap_cp1252; # Copy $_ and return zapped
+  my $fixed = zap_cp1252; # Copy $_ and return fixed
 
 =head1 Conversion Table
 
