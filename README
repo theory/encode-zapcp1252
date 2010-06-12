@@ -1,4 +1,4 @@
-Encode/CP1252 version 0.21
+Encode/CP1252 version 0.30
 ==========================
 
 Have you ever been processing a Web form submit, assuming that the incoming
@@ -13,7 +13,10 @@ well-known; you see a nice chart at documenting the differences on
 Of course, that won't really help you. So this library's module,
 Encode::ZapCP1252, provides subroutines for removing Windows Western Gremlins
 from strings, turning them into their appropriate UTF-8 or ASCII
-approximations.
+approximations:
+
+    my $clean_latin1 = zap_cp1252 $latin1_text;
+    my $fixed_utf8   = fix_cp1252 $utf8_text;
 
 Installation
 ------------

@@ -1,6 +1,6 @@
 Revision history for Perl extension Encode::ZapCP1252
 
-0.21
+0.30
       - The conversion functions now ignore `undef` arguments and just return
         without doing anything.
       - Strings are no longer modifed in-place unless the conversion
