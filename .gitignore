@@ -6,3 +6,5 @@ MANIFEST.bak
 META.*
 MYMETA.*
 Build
+Makefile.PL
+README
