@@ -1,7 +1,5 @@
 #!/usr/bin/perl -w
 
-# $Id: base.t 3701 2008-05-02 18:27:05Z david $
-
 use strict;
 use Test::More;
 

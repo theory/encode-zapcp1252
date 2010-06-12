@@ -1,7 +1,5 @@
 package Encode::ZapCP1252;
 
-# $Id$
-
 use strict;
 require Exporter;
 use vars qw($VERSION @ISA @EXPORT);
