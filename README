@@ -8,7 +8,7 @@ Microsoft uses a superset of the Latin-1 encoding called "Windows Western" or
 "CP1252". So mostly things will come out right, but a few things--like curly
 quotes, m-dashes, ellipses, and the like--will not. The differences are
 well-known; you see a nice chart at documenting the differences on
-L<Wikipedia|http://en.wikipedia.org/wiki/Windows-1252>.
+[Wikipedia](http://en.wikipedia.org/wiki/Windows-1252).
 
 Of course, that won't really help you. So this library's module,
 Encode::ZapCP1252, provides subroutines for removing Windows Western Gremlins
