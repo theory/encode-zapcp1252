@@ -1,5 +1,7 @@
 Revision history for Perl extension Encode::ZapCP1252
 
+0.21
+
 0.20  2010-06-12T00:39:35
       - Added `local` to examples of changing the maping tables.
       - When the Encode module is insatlled, zapping and fixing CP1252
