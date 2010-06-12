@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Test::More tests => 11;
+use Test::More tests => 13;
 
 BEGIN { use_ok 'Encode::ZapCP1252' or die; }
 
@@ -44,3 +44,7 @@ $utf8 =~ s/€/E/;
 $fix_me = $cp1252;
 fix_cp1252 $fix_me;
 is $fix_me, $utf8, 'Convert to utf-8 with modified table';
+
+# Test that undefs are ignored.
+is zap_cp1252 undef, undef, 'zap_cp1252 should ignore undef';
+is fix_cp1252 undef, undef, 'fix_cp1252 should ignore undef';

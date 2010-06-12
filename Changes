@@ -1,6 +1,8 @@
 Revision history for Perl extension Encode::ZapCP1252
 
 0.21
+      - The conversion functions now ignore `undef` arguments and just return
+        without doing anything.
 
 0.20  2010-06-12T00:39:35
       - Added `local` to examples of changing the maping tables.

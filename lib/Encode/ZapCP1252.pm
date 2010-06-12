@@ -73,6 +73,7 @@ our %utf8_for = (
 );
 
 sub zap_cp1252 ($) {
+    return unless defined $_[0];
     if (ENCODE && Encode::is_utf8($_[0])) {
         _tweak_decoded(\%ascii_for, $_[0]);
     } else {
@@ -82,6 +83,7 @@ sub zap_cp1252 ($) {
 }
 
 sub fix_cp1252 ($) {
+    return unless defined $_[0];
     if (ENCODE && Encode::is_utf8($_[0])) {
         _tweak_decoded(\%utf8_for, $_[0]);
     } else {
@@ -169,7 +171,8 @@ Use them like so:
 
 The C<zap_cp1252()> subroutine performs I<in place> conversions of any CP1252
 gremlins into their appropriate ASCII approximations, while C<fix_cp1252()>
-converts them, in place, into their UTF-8 equivalents.
+converts them, in place, into their UTF-8 equivalents. C<undef>s will be
+ignored.
 
 Note that because the conversion happens in place, the data to be converted
 I<cannot> be a string constant; it must be a scalar variable. For convenience,
