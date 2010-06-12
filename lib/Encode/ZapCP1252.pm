@@ -133,7 +133,7 @@ text was encoded in ISO-8859-1 (Latin-1), only to end up with a bunch of junk
 because someone pasted in content from Microsoft Word? Well, this is because
 Microsoft uses a superset of the Latin-1 encoding called "Windows Western" or
 "CP1252". So mostly things will come out right, but a few things--like curly
-quotes, m-dashes, elipses, and the like--will not. The differences are
+quotes, m-dashes, ellipses, and the like--will not. The differences are
 well-known; you see a nice chart at documenting the differences on
 L<Wikipedia|http://en.wikipedia.org/wiki/Windows-1252>.
 
@@ -275,7 +275,7 @@ CP1252 gremlins to more-or-less appropriate ASCII characters.
 
 =head1 Copyright and License
 
-Copyright (c) 2005-2010 Kineticode, Inc. Some Rights Reserved.
+Copyright (c) 2005-2010 David E. Wheeler. Some Rights Reserved.
 
 This module is free software; you can redistribute it and/or modify it under the
 same terms as Perl itself.
