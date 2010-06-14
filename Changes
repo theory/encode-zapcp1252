@@ -1,6 +1,7 @@
 Revision history for Perl extension Encode::ZapCP1252
 
 0.31
+      - Fixed test failures on Perls less than 5.10.
 
 0.30  2010-06-12T18:05:38
       - The conversion functions now ignore `undef` arguments and just return

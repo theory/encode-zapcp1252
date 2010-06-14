@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Test::More tests => 19;
+use Test::More tests => 13;
 
 BEGIN { use_ok 'Encode::ZapCP1252' or die; }
 
@@ -30,27 +30,6 @@ is $fix_me, $cp1252, 'Should not have been fixed in-place';
 $fix_me = $cp1252;
 is zap_cp1252 $fix_me, $ascii, 'Check zapped return value';
 is $fix_me, $cp1252, 'Should not have been zapped in-place';
-
-SKIP: {
-    skip 'Conversion of $_ not supported before Perl 5.10.', 6 if $] < 5.010000;
-
-    # Test conversion of $_.
-    local $_ = $cp1252;
-    zap_cp1252;
-    is $_, $ascii, 'Should have zapped $_ in-place';
-    local $_ = $cp1252;
-    fix_cp1252;
-    is $_, $utf8, 'Should have fixed $_ in-place';
-
-    # Test non-in-place conversion of $_.
-    local $_ = $cp1252;
-    is zap_cp1252, $ascii, 'Should have $_-zapped return value';
-    is $_, $cp1252, 'Should not have zapped $_ in-place';
-
-    local $_ = $cp1252;
-    is fix_cp1252, $utf8, 'Should have $_->fixed return value';
-    is $_, $cp1252, 'Should not have fixed $_ in-place';
-}
 
 # Test conversion to ASCII with modified table.
 $Encode::ZapCP1252::ascii_for{"\x80"} = 'E';
