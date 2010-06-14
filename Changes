@@ -1,5 +1,7 @@
 Revision history for Perl extension Encode::ZapCP1252
 
+0.32
+
 0.31  2010-06-14T03:09:06
       - Fixed test failures on Perls less than 5.10.
 
