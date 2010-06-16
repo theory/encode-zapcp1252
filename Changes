@@ -1,5 +1,7 @@
 Revision history for Perl extension Encode::ZapCP1252
 
+0.33
+
 0.32  2010-06-16T22:45:06
       - Fixed bug where `zap_cp1252` was failing to return a value when called
         in a list or scalar context.
