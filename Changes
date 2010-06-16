@@ -1,6 +1,8 @@
 Revision history for Perl extension Encode::ZapCP1252
 
 0.32
+      - Fixed bug where `zap_cp1252` was failing to return a value when called
+        in a list or scalar context.
 
 0.31  2010-06-14T03:09:06
       - Fixed test failures on Perls less than 5.10.
