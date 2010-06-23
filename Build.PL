@@ -7,7 +7,7 @@ my $build = Module::Build->new(
     requires           => { 'perl'          => 5.006_002  },
     configure_requires => { 'Module::Build' => '0.36' },
     recommends         => {
-        'Test::Pod' => '1.20',
+        'Test::Pod' => '1.41',
         'Encode'    => 0,
     },
     build_requires     => {
