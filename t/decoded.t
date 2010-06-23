@@ -4,8 +4,8 @@ use strict;
 use Test::More;
 
 BEGIN {
-    plan skip_all => 'These tests require the Encode module'
-        unless eval { require Encode };
+    plan skip_all => 'These tests require Perl 5.8.8 or higher'
+        unless $] >= 5.008_008;
     plan tests => 6;
 }
 

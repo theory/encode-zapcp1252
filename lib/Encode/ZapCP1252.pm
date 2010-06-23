@@ -8,7 +8,8 @@ use 5.006_002;
 $VERSION = '0.33';
 @ISA     = qw(Exporter);
 @EXPORT  = qw(zap_cp1252 fix_cp1252);
-use constant ENCODE => eval { require Encode };
+use constant PERL588 => $] >= 5.008_008;
+require Encode if PERL588;
 
 our %ascii_for = (
     # http://en.wikipedia.org/wiki/Windows-1252
@@ -82,7 +83,7 @@ sub _tweakit {
     my $table = shift;
     return unless defined $_[0];
     local $_[0] = $_[0] if defined wantarray;
-    if (ENCODE && Encode::is_utf8($_[0])) {
+    if (PERL588 && Encode::is_utf8($_[0])) {
         _tweak_decoded($table, $_[0]);
     } else {
         $_[0] =~ s{([\x80-\x9f])}{$table->{$1} || $1}emxsg;
@@ -187,7 +188,7 @@ modifed and returned. The original string will be unchanged:
 In this case, even constant values can be processed. Either way, C<undef>s
 will be ignored.
 
-In Perl 5.8 and higher, the conversion will work even when the string is
+In Perl 5.8.8 and higher, the conversion will work even when the string is
 decoded to Perl's internal form (usually via C<decode 'ISO-8859-1', $text>) or
 the string is encoded (and thus simply processed by Perl as a series of
 bytes). The conversion will even work on a string that has not been decoded
