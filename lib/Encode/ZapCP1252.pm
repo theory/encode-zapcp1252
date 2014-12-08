@@ -269,6 +269,8 @@ use L<Encode>.
 
 =item L<Encode>
 
+=item L<Encode::FixLatin>
+
 =item L<Wikipedia: Windows-1252|http://en.wikipedia.org/wiki/Windows-1252>
 
 =back

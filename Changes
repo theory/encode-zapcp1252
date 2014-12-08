@@ -1,6 +1,7 @@
 Revision history for Perl extension Encode::ZapCP1252
 
 0.34
+      - Add link to Encode::FixLatin. Suggested by Jonas Smedegaard.
 
 0.33  2011-11-23T05:19:36Z
       - Require Test::Pod 1.41 to support `L<text|url>` syntax in the Pod.
