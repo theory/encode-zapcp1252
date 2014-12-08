@@ -16,7 +16,7 @@ my $build = Module::Build->new(
     },
     meta_merge => {
         resources => {
-            homepage   => 'http://search.cpan.org/dist/Encode-CP1252/',
+            homepage   => 'http://search.cpan.org/dist/Encode-ZapCP1252/',
             bugtracker => 'http://github.com/theory/encode-zapcp1252/issues/',
             repository => 'http://github.com/theory/encode-zapcp1252',
         }
