@@ -278,11 +278,11 @@ use L<Encode>.
 =head1 Support
 
 This module is stored in an open L<GitHub
-repository|http://github.com/theory/encode-cp1252/tree/>. Feel free to fork
+repository|http://github.com/theory/encode-zapcp1252/>. Feel free to fork
 and contribute!
 
 Please file bug reports via L<GitHub
-Issues|http://github.com/theory/encode-cp1252/issues/> or by sending mail to
+Issues|http://github.com/theory/encode-zapcp1252/issues/> or by sending mail to
 L<bug-Encode-CP1252@rt.cpan.org|mailto:bug-Encode-CP1252@rt.cpan.org>.
 
 =head1 Author
