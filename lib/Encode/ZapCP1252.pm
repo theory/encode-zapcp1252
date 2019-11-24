@@ -12,7 +12,7 @@ use constant PERL588 => $] >= 5.008_008;
 require Encode if PERL588;
 
 our %ascii_for = (
-    # http://en.wikipedia.org/wiki/Windows-1252
+    # https://en.wikipedia.org/wiki/Windows-1252
     "\x80" => 'e',    # EURO SIGN
     "\x82" => ',',    # SINGLE LOW-9 QUOTATION MARK
     "\x83" => 'f',    # LATIN SMALL LETTER F WITH HOOK
@@ -43,7 +43,7 @@ our %ascii_for = (
 );
 
 our %utf8_for = (
-    # http://en.wikipedia.org/wiki/Windows-1252
+    # https://en.wikipedia.org/wiki/Windows-1252
     "\x80" => '€',    # EURO SIGN
     "\x82" => ',',    # SINGLE LOW-9 QUOTATION MARK
     "\x83" => 'ƒ',    # LATIN SMALL LETTER F WITH HOOK
@@ -142,7 +142,7 @@ of the Latin-1 encoding called "Windows Western" or "CP1252". If the specified
 encoding is Latin-1, mostly things will come out right, but a few things--like
 curly quotes, m-dashes, ellipses, and the like--may not. The differences are
 well-known; you see a nice chart at documenting the differences on
-L<Wikipedia|http://en.wikipedia.org/wiki/Windows-1252>.
+L<Wikipedia|https://en.wikipedia.org/wiki/Windows-1252>.
 
 Of course, that won't really help you. What will help you is to quit using
 Latin-1 and switch to UTF-8. Then you can just convert from CP1252 to UTF-8
@@ -161,9 +161,8 @@ text that I<claims> to be UTF-8, but it I<still> ends up with some CP1252
 gremlins mixed in with properly encoded characters. I've seen examples of just
 this sort of thing when processing GMail messages and attempting to insert
 them into a UTF-8 database, as well as in some feeds processed by, say
-L<Yahoo! Pipes|http://pipes.yahoo.com>. Doesn't work so well. For such cases,
-there's C<fix_cp1252>, which converts those CP1252 gremlins into their UTF-8
-equivalents.
+Yahoo! Pipes. Doesn't work so well. For such cases, there's C<fix_cp1252>,
+which converts those CP1252 gremlins into their UTF-8 equivalents.
 
 =head1 Usage
 
@@ -271,18 +270,18 @@ use L<Encode>.
 
 =item L<Encode::FixLatin>
 
-=item L<Wikipedia: Windows-1252|http://en.wikipedia.org/wiki/Windows-1252>
+=item L<Wikipedia: Windows-1252|https://en.wikipedia.org/wiki/Windows-1252>
 
 =back
 
 =head1 Support
 
 This module is stored in an open L<GitHub
-repository|http://github.com/theory/encode-zapcp1252/>. Feel free to fork
+repository|https://github.com/theory/encode-zapcp1252/>. Feel free to fork
 and contribute!
 
 Please file bug reports via L<GitHub
-Issues|http://github.com/theory/encode-zapcp1252/issues/> or by sending mail to
+Issues|https://github.com/theory/encode-zapcp1252/issues/> or by sending mail to
 L<bug-Encode-CP1252@rt.cpan.org|mailto:bug-Encode-CP1252@rt.cpan.org>.
 
 =head1 Author
