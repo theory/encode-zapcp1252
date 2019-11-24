@@ -295,7 +295,7 @@ CP1252 gremlins to more-or-less appropriate ASCII characters.
 
 =head1 Copyright and License
 
-Copyright (c) 2005-2010 David E. Wheeler. Some Rights Reserved.
+Copyright (c) 2005-2019 David E. Wheeler. Some Rights Reserved.
 
 This module is free software; you can redistribute it and/or modify it under the
 same terms as Perl itself.
