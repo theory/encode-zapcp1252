@@ -28,7 +28,8 @@
 # Avoid build files.
 ^Encode-CP1252
 
-# Avoid spelling test.
-pod-spelling.t$
+# Avoid Pod tests.
+t/pod[^.]*\.t
+
 ^MYMETA.yml$
 ^MYMETA\.json$
