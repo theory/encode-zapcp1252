@@ -84,31 +84,19 @@ sub _tweakit {
     return unless defined $_[0];
     local $_[0] = $_[0] if defined wantarray;
     if (PERL588 && Encode::is_utf8($_[0])) {
-        _tweak_decoded($table, $_[0]);
+        if (utf8::valid($_[0])) {
+            $_[0] =~ s{([\x80-\x9f])}{
+                $table->{$1} ? Encode::decode('UTF-8', $table->{$1}) : $1
+            }emxsg;
+        } else {
+            Encode::_utf8_off($_[0]);
+            $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
+            Encode::_utf8_on($_[0]);
+        }
     } else {
-        $_[0] =~ s{([\x80-\x9f])}{$table->{$1} || $1}emxsg;
+        $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
     }
     return $_[0] if defined wantarray;
-}
-
-sub _tweak_decoded {
-    my $table = shift;
-    local $@;
-    # First, try to replace in the decoded string.
-    eval {
-        $_[0] =~ s{([\x80-\x9f])}{
-            $table->{$1} ? Encode::decode('UTF-8', $table->{$1}) : $1
-        }emxsg
-    };
-    if (my $err = $@) {
-        # If we got a "Malformed UTF-8 character" error, then someone
-        # likely turned on the utf8 flag without decoding. So turn it off.
-        # and try again.
-        die if $err !~ /Malformed/;
-        Encode::_utf8_off($_[0]);
-        $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
-        Encode::_utf8_on($_[0]);
-    }
 }
 
 1;
