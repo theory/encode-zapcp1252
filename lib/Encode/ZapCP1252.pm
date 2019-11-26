@@ -75,26 +75,38 @@ our %utf8_for = (
 
 BEGIN {
     my $proto = $] >= 5.010000 ? '_' : '$';
-    eval "sub zap_cp1252($proto) { unshift \@_, \\%ascii_for; &_tweakit; }";
-    eval "sub fix_cp1252($proto) { unshift \@_, \\%utf8_for;  &_tweakit; }";
+    eval "sub zap_cp1252($proto) { &_ascii; }";
+    eval "sub fix_cp1252($proto) { &_utf8; }";
 }
 
-sub _tweakit {
-    my $table = shift;
+sub _ascii {
+    return unless defined $_[0];
+    local $_[0] = $_[0] if defined wantarray;
+    if (PERL588 && !utf8::valid($_[0])) {
+        Encode::_utf8_off($_[0]);
+        $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$ascii_for{$1}/emxsg;
+        Encode::_utf8_on($_[0]);
+    } else {
+        $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$ascii_for{$1}/emxsg;
+    }
+    return $_[0] if defined wantarray;
+}
+
+sub _utf8 {
     return unless defined $_[0];
     local $_[0] = $_[0] if defined wantarray;
     if (PERL588 && Encode::is_utf8($_[0])) {
         if (utf8::valid($_[0])) {
             $_[0] =~ s{([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])}{
-                Encode::decode('UTF-8', $table->{$1})
+                Encode::decode_utf8($utf8_for{$1})
             }emxsg;
         } else {
             Encode::_utf8_off($_[0]);
-            $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$table->{$1}/emxsg;
+            $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$utf8_for{$1}/emxsg;
             Encode::_utf8_on($_[0]);
         }
     } else {
-        $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$table->{$1}/emxsg;
+        $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$utf8_for{$1}/emxsg;
     }
     return $_[0] if defined wantarray;
 }
