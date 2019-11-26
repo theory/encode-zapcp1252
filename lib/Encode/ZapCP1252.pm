@@ -85,16 +85,16 @@ sub _tweakit {
     local $_[0] = $_[0] if defined wantarray;
     if (PERL588 && Encode::is_utf8($_[0])) {
         if (utf8::valid($_[0])) {
-            $_[0] =~ s{([\x80-\x9f])}{
-                $table->{$1} ? Encode::decode('UTF-8', $table->{$1}) : $1
+            $_[0] =~ s{([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])}{
+                Encode::decode('UTF-8', $table->{$1})
             }emxsg;
         } else {
             Encode::_utf8_off($_[0]);
-            $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
+            $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$table->{$1}/emxsg;
             Encode::_utf8_on($_[0]);
         }
     } else {
-        $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
+        $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$table->{$1}/emxsg;
     }
     return $_[0] if defined wantarray;
 }
