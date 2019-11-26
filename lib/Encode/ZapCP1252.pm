@@ -82,7 +82,7 @@ BEGIN {
 sub _ascii {
     return unless defined $_[0];
     local $_[0] = $_[0] if defined wantarray;
-    if (PERL588 && !utf8::valid($_[0])) {
+    if (PERL588 && Encode::is_utf8($_[0]) && !utf8::valid($_[0])) {
         Encode::_utf8_off($_[0]);
         $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$ascii_for{$1}/emxsg;
         Encode::_utf8_on($_[0]);
