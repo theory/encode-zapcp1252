@@ -21,39 +21,26 @@ my $fix_me = Encode::decode(
     join ' ', map { chr } 0x80, 0x82 .. 0x8c, 0x8e, 0x91 .. 0x9c, 0x9e, 0x9f
 );
 
-fix_cp1252 $fix_me;
-is $fix_me, $utf8, 'Convert decoded from Latin-1 to utf-8';
+# It's valid Unicode, so do nothing.
+is $fix_me, fix_cp1252 $fix_me, 'Should not convert valid Unicode';
 
 # Try ascii.
-$fix_me = Encode::decode(
-    'ISO-8859-1',
-    join ' ', map { chr } 0x80, 0x82 .. 0x8c, 0x8e, 0x91 .. 0x9c, 0x9e, 0x9f
-);
-zap_cp1252 $fix_me;
-is $fix_me, $ascii, 'Convert decoded from Latin-1 to ascii';
+is $fix_me, zap_cp1252 $fix_me, 'Should not convert valid Unicode to ASCII';
 
-# Test conversion with utf8 bit flipped.
+# Test conversion with utf8 bit flipped but not valid Unicode.
 $fix_me = join ' ', map { chr } 0x80, 0x82 .. 0x8c, 0x8e, 0x91 .. 0x9c, 0x9e, 0x9f;
 Encode::_utf8_on($fix_me);
-fix_cp1252 $fix_me;
-is $fix_me, $utf8, 'Convert utf8-bit-flipped to utf-8';
+is fix_cp1252 $fix_me, $utf8, 'Should convert utf8-bit-flipped to utf-8';
 
 # Try it with ascii.
 $fix_me = join ' ', map { chr } 0x80, 0x82 .. 0x8c, 0x8e, 0x91 .. 0x9c, 0x9e, 0x9f;
 Encode::_utf8_on($fix_me);
-zap_cp1252 $fix_me;
-is $fix_me, $ascii, 'Convert utf8-bit-flipped to ascii';
+is zap_cp1252 $fix_me, $ascii, 'Should convert utf8-bit-flipped to ascii';
 
-# Test conversion to decoded with modified table.
+# Test conversion with modified table.
 $Encode::ZapCP1252::utf8_for{"\x80"} = 'E';
 $utf8 =~ s/€/E/;
 
-$fix_me = Encode::decode(
-    'ISO-8859-1',
-    join ' ', map { chr } 0x80, 0x82 .. 0x8c, 0x8e, 0x91 .. 0x9c, 0x9e, 0x9f
-);
-
-fix_cp1252 $fix_me;
-is $fix_me, $utf8, 'Convert decoded from Latin-1 with modified table';
-
-
+$fix_me = join ' ', map { chr } 0x80, 0x82 .. 0x8c, 0x8e, 0x91 .. 0x9c, 0x9e, 0x9f;
+Encode::_utf8_on($fix_me);
+is fix_cp1252 $fix_me, $utf8, 'Convert invalid UTF-8 with modified table';

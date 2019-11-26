@@ -84,17 +84,13 @@ sub _tweakit {
     return unless defined $_[0];
     local $_[0] = $_[0] if defined wantarray;
     if (PERL588 && Encode::is_utf8($_[0])) {
-        if (utf8::valid($_[0])) {
-            $_[0] =~ s{([\x80-\x9f])}{
-                $table->{$1} ? Encode::decode('UTF-8', $table->{$1}) : $1
-            }emxsg;
-        } else {
+        unless (utf8::valid($_[0])) {
             Encode::_utf8_off($_[0]);
-            $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
+            $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$table->{$1}/emxsg;
             Encode::_utf8_on($_[0]);
         }
     } else {
-        $_[0] =~ s/([\x80-\x9f])/$table->{$1} || $1/emxsg;
+        $_[0] =~ s/([\x80\x82-\x8c\x8e\x91-\x9c\x9e\x9f])/$table->{$1}/emxsg;
     }
     return $_[0] if defined wantarray;
 }
@@ -176,13 +172,10 @@ In this case, even constant values can be processed. Either way, C<undef>s
 will be ignored.
 
 In Perl 5.8.8 and higher, the conversion will work even when the string is
-decoded to Perl's internal form (usually via C<decode 'ISO-8859-1', $text>) or
-the string is encoded (and thus simply processed by Perl as a series of
-bytes). The conversion will even work on a string that has not been decoded
-but has had its C<utf8> flag flipped anyway (usually by an injudicious use of
-C<Encode::_utf8_on()>. This is to enable the highest possible likelihood of
-removing those CP1252 gremlins no matter what kind of processing has already
-been executed on the string.
+encoded (and thus simply processed by Perl as a series of bytes). The
+conversion will even work on a string that has not been decoded but has had
+its C<utf8> flag flipped anyway (usually by an injudicious use of
+C<Encode::_utf8_on()>.
 
 In Perl 5.10 and higher, the functions may optionally be called with no
 arguments, in which case C<$_> will be converted, instead:
@@ -280,6 +273,9 @@ David E. Wheeler <david@justatheory.com>
 
 My thanks to Sean Burke for sending me his original method for converting
 CP1252 gremlins to more-or-less appropriate ASCII characters.
+
+Thanks also to Karl Williamson for suggesting improvements when handling
+valid UTF-8.
 
 =head1 Copyright and License
 
