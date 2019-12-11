@@ -1,6 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
+use utf8;
 use Test::More tests => 13;
 
 BEGIN { use_ok 'Encode::ZapCP1252' or die; }
