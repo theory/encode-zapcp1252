@@ -3,9 +3,10 @@ Revision history for Perl extension Encode::ZapCP1252
 0.34
       - Added link to Encode::FixLatin. Suggested by Jonas Smedegaard.
       - Removed Pod tests.
-      - Refactored and greatly simplified, in part to fix issues on Perl 5.31.
-        Thanks to Karl Williamson for the continuing improvement of Unicode
-        support in Perl and for the fix to this module.
+      - Fixed an issue discovered on Perl 5.31 that incorrectly resulted in the creation
+        of malformed UTF-8 when fixing unicode strings. Thanks to Karl
+        Williamson for the continuing improvement of Unicode support in Perl and
+        for the fix to this module.
 
 0.33  2011-11-23T05:19:36Z
       - Require Test::Pod 1.41 to support `L<text|url>` syntax in the Pod.
