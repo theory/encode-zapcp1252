@@ -139,12 +139,16 @@ sub _tweakit {
     my $valid_utf8 = $is_utf8 && utf8::valid($_[0]);
     if (!$is_utf8) {
 
-        # Here is either not UTF-8, or the UTF-8 is valid.  Change the 1252
-        # characters to their counterparts.  (These bytes are very rarely used
-        # in real world applications, so their presence likely indicates that
-        # CP1252 was meant, regardless of whether the string is UTF-8 or not.)
+        # Here is non-UTF-8. Change the 1252 characters to their UTF-8
+        # counterparts. (These bytes are very rarely used in real world
+        # applications, so their presence likely indicates that CP1252 was
+        # meant, regardless of whether the string is UTF-8 or not.)
         $_[0] =~ s/($cp1252_re)/Encode::encode_utf8($table->{$1})/gems;
     } elsif ($valid_utf8) {
+
+        # Heere is well-formed Perl extended UTF-8 and has the UTF-8 flag on or
+        # the string is held as bytes. Change the 1252 characters to their
+        # Unicode counterparts.
         $_[0] =~ s/($cp1252_re)/$table->{$1}/gems;
     } else {    # Invalid UTF-8.  Look for single-byte CP1252 gremlins
 
