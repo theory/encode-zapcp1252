@@ -137,12 +137,14 @@ sub _tweakit {
     local $_[0] = $_[0] if defined wantarray;
     my $is_utf8 = PERL588 && Encode::is_utf8($_[0]);
     my $valid_utf8 = $is_utf8 && utf8::valid($_[0]);
-    if ($valid_utf8 || ! $is_utf8) {
+    if (!$is_utf8) {
 
         # Here is either not UTF-8, or the UTF-8 is valid.  Change the 1252
         # characters to their counterparts.  (These bytes are very rarely used
         # in real world applications, so their presence likely indicates that
         # CP1252 was meant, regardless of whether the string is UTF-8 or not.)
+        $_[0] =~ s/($cp1252_re)/Encode::encode_utf8($table->{$1})/gems;
+    } elsif ($valid_utf8) {
         $_[0] =~ s/($cp1252_re)/$table->{$1}/gems;
     } else {    # Invalid UTF-8.  Look for single-byte CP1252 gremlins
 
@@ -358,7 +360,7 @@ use L<Encode>.
 
 =item L<Encode>
 
-=item L<Encode::FixLatin>
+=item L<Encoding::FixLatin>
 
 =item L<Wikipedia: Windows-1252|https://en.wikipedia.org/wiki/Windows-1252>
 
