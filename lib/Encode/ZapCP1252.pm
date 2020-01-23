@@ -10,7 +10,7 @@ $VERSION = '0.34';
 @ISA     = qw(Exporter);
 @EXPORT  = qw(zap_cp1252 fix_cp1252);
 use constant PERL588 => $] >= 5.008_008;
-require Encode if PERL588;
+use Encode ();
 
 our %ascii_for = (
     # https://en.wikipedia.org/wiki/Windows-1252
