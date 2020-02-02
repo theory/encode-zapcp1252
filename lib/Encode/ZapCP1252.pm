@@ -282,6 +282,14 @@ modifed and returned. The original string will be unchanged:
 In this case, even constant values can be processed. Either way, C<undef>s
 will be ignored.
 
+In Perl 5.10 and higher, the functions may optionally be called with no
+arguments, in which case C<$_> will be converted, instead:
+
+  zap_cp1252; # Modify $_ in-place.
+  fix_cp1252; # Modify $_ in-place.
+  my $zapped = zap_cp1252; # Copy $_ and return zapped
+  my $fixed = zap_cp1252; # Copy $_ and return fixed
+
 In Perl 5.8.8 and higher, the conversion will work even when the string is
 decoded to Perl's internal form (usually via C<decode 'ISO-8859-1', $text>) or
 the string is encoded (and thus simply processed by Perl as a series of
@@ -291,13 +299,9 @@ C<Encode::_utf8_on()>. This is to enable the highest possible likelihood of
 removing those CP1252 gremlins no matter what kind of processing has already
 been executed on the string.
 
-In Perl 5.10 and higher, the functions may optionally be called with no
-arguments, in which case C<$_> will be converted, instead:
-
-  zap_cp1252; # Modify $_ in-place.
-  fix_cp1252; # Modify $_ in-place.
-  my $zapped = zap_cp1252; # Copy $_ and return zapped
-  my $fixed = zap_cp1252; # Copy $_ and return fixed
+That said, although C<fix_cp1252()> takes a conservative approach to replacing
+text in Unicode strings, it should be used as a very last option. Really,
+avoid that situation if you can.
 
 =head1 Conversion Table
 
@@ -345,11 +349,11 @@ C<zap_cp1252()> to use an uppercase "E" for the euro sign, just do this:
 
   local $Encode::ZapCP1252::ascii_for{"\x80"} = 'E';
 
-Or if, for some bizarre reason, you wanted the UTF-8 equivalent for a bullet
-converted by C<fix_cp1252()> to really be an asterisk (why would you? Just use
-C<zap_cp1252> for that!), you can do this:
+Or if, for some reason, you wanted the UTF-8 equivalent for a bullet
+converted by C<fix_cp1252()> to be a black square, you can assign the
+bytes (never a Unicode string) like so:
 
-  local $Encode::ZapCP1252::utf8_for{"\x95"} = '*';
+  local $Encode::ZapCP1252::utf8_for{"\x95"} = Encode::encode_utf8('■');
 
 Just remember, without C<local> this would be a global change. In that case,
 be careful if your code zaps CP1252 elsewhere. Of course, it shouldn't really
@@ -386,11 +390,12 @@ David E. Wheeler <david@justatheory.com>
 =head1 Acknowledgments
 
 My thanks to Sean Burke for sending me his original method for converting
-CP1252 gremlins to more-or-less appropriate ASCII characters.
+CP1252 gremlins to more-or-less appropriate ASCII characters, and to Karl
+Williamson for more correct handling of Unicode strings.
 
 =head1 Copyright and License
 
-Copyright (c) 2005-2019 David E. Wheeler. Some Rights Reserved.
+Copyright (c) 2005-2020 David E. Wheeler. Some Rights Reserved.
 
 This module is free software; you can redistribute it and/or modify it under the
 same terms as Perl itself.
