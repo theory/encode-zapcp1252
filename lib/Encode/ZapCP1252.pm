@@ -1,7 +1,6 @@
 package Encode::ZapCP1252;
 
 use strict;
-use utf8;
 require Exporter;
 use vars qw($VERSION @ISA @EXPORT);
 use 5.006_002;
@@ -143,13 +142,13 @@ sub _tweakit {
         # counterparts. (These bytes are very rarely used in real world
         # applications, so their presence likely indicates that CP1252 was
         # meant, regardless of whether the string is UTF-8 or not.)
-        $_[0] =~ s/($cp1252_re)/Encode::encode_utf8($table->{$1})/gems;
+        $_[0] =~ s/($cp1252_re)/$table->{$1}/gems;
     } elsif ($valid_utf8) {
 
-        # Heere is well-formed Perl extended UTF-8 and has the UTF-8 flag on or
-        # the string is held as bytes. Change the 1252 characters to their
+        # Here is well-formed Perl extended UTF-8 and has the UTF-8 flag on
+        # and the string is held as bytes. Change the 1252 characters to their
         # Unicode counterparts.
-        $_[0] =~ s/($cp1252_re)/$table->{$1}/gems;
+        $_[0] =~ s/($cp1252_re)/Encode::decode_utf8($table->{$1})/gems;
     } else {    # Invalid UTF-8.  Look for single-byte CP1252 gremlins
 
         # Turn off the UTF-8 flag so that we can go through the string

@@ -57,13 +57,14 @@ $fix_me = Encode::decode(
 fix_cp1252 $fix_me;
 is $fix_me, $utf8, 'Convert decoded from Latin-1 with modified table';
 
-# Test it with the valid use of one of the gremlins (0x80) in UTF-8.
+# Test it with the valid use of one of the gremlins (π is [0xcf,0x80]) in UTF-8.
 is fix_cp1252 'π', 'π', 'Should not convert valid use of 0x80';
 is zap_cp1252 'π', 'π', 'Should not zap valid use of 0x80';
 
 # But it should convert it if it's not UTF-8.
-$Encode::ZapCP1252::utf8_for{"\x80"} = $euro;
-is fix_cp1252 "\xCF\x80", "\xCF" . Encode::encode_utf8($euro),
+my $utf8_euro = Encode::encode_utf8($euro);
+$Encode::ZapCP1252::utf8_for{"\x80"} = $utf8_euro;
+is fix_cp1252 "\xCF\x80", "\xCF" . $utf8_euro,
     'Should convert 0x80 when not parsing UTF-8';
 is zap_cp1252 "\xCF\x80", qq{\xCF$Encode::ZapCP1252::ascii_for{"\x80"}},
 'Should convert 0x80 to ASCII when not parsing UTF-8';
