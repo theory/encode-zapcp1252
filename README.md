@@ -41,7 +41,7 @@ Or, if you don't have Module::Build installed, type the following:
 Copyright and Licence
 ---------------------
 
-Copyright (c) 2005-2019 David E. Wheeler. Some Rights Reserved.
+Copyright (c) 2005-2020 David E. Wheeler. Some Rights Reserved.
 
 This module is free software; you can redistribute it and/or modify it under
 the same terms as Perl itself.
