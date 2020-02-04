@@ -381,7 +381,7 @@ and contribute!
 
 Please file bug reports via L<GitHub
 Issues|https://github.com/theory/encode-zapcp1252/issues/> or by sending mail to
-L<bug-Encode-CP1252@rt.cpan.org|mailto:bug-Encode-CP1252@rt.cpan.org>.
+L<bug-Encode-ZapCP1252@rt.cpan.org|mailto:bug-Encode-ZapCP1252@rt.cpan.org>.
 
 =head1 Author
 

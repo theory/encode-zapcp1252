@@ -1,7 +1,7 @@
-Encode/CP1252 version 0.40
-==========================
+Encode/ZapCP1252 version 0.40
+=============================
 
-[![CPAN version](https://badge.fury.io/pl/Encode-CP1252.svg)](https://badge.fury.io/pl/Encode-CP1252)
+[![CPAN version](https://badge.fury.io/pl/Encode-ZapCP1252.svg)](https://badge.fury.io/pl/Encode-ZapCP1252)
 [![Build Status](https://github.com/theory/encode-zapcp1252/workflows/CI/badge.svg)](/theory/encode-zapcp1252/actions/)
 
 Have you ever been processing a Web form submit, assuming that the incoming
