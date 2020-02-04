@@ -1,6 +1,6 @@
 Revision history for Perl extension Encode::ZapCP1252
 
-0.34
+0.40  2020-02-04T15:30:50Z
       - Added link to Encoding::FixLatin. Suggested by Jonas Smedegaard.
       - Removed Pod tests from the distribution.
       - Fixed an issue discovered on Perl 5.31 that incorrectly resulted in

@@ -1,4 +1,4 @@
-Encode/CP1252 version 0.34
+Encode/CP1252 version 0.40
 ==========================
 
 [![CPAN version](https://badge.fury.io/pl/Encode-CP1252.svg)](https://badge.fury.io/pl/Encode-CP1252)
