@@ -139,9 +139,9 @@ sub _tweakit {
     if (!$is_utf8) {
 
         # Here is non-UTF-8. Change the 1252 characters to their UTF-8
-        # counterparts. (These bytes are very rarely used in real world
+        # counterparts. These bytes are very rarely used in real world
         # applications, so their presence likely indicates that CP1252 was
-        # meant, regardless of whether the string is UTF-8 or not.)
+        # meant.
         $_[0] =~ s/($cp1252_re)/$table->{$1}/gems;
     } elsif ($valid_utf8) {
 
