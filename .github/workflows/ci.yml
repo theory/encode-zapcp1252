@@ -12,6 +12,7 @@ jobs:
           - { os: windows-latest, perl: '5.8'   }
           - { os: windows-latest, perl: '5.10'  }
           - { os: windows-latest, perl: '5.12'  }
+          - { os: windows-latest, perl: '5.16'  } # https://github.com/Test-More/test-more/issues/859
           - { os: windows-latest, perl: '5.32'  } # Not on Strawberry yet.
     name: 🐪 Perl ${{ matrix.perl }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
